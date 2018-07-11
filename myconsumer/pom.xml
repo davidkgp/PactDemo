@@ -1,0 +1,137 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.test.provider1_consumer</groupId>
+	<artifactId>myconsumer</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.2.3</version>
+		</dependency>
+		<dependency>
+			<groupId>au.com.dius</groupId>
+			<artifactId>pact-jvm-consumer-junit_2.12</artifactId>
+			<version>3.5.14</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<activation>
+				<property>
+					<name>mode</name>
+					<value>dev</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<!-- https://mvnrepository.com/artifact/au.com.dius/pact-jvm-provider-maven -->
+
+						<groupId>au.com.dius</groupId>
+						<artifactId>pact-jvm-provider-maven_2.11</artifactId>
+						<version>3.5.16</version>
+
+						<configuration>
+							<pactDirectory>../acceptedPacts</pactDirectory>
+							<pactBrokerUrl>${pact_broker_url}</pactBrokerUrl>
+							<pactBrokerUsername>${pact_broker_userid}</pactBrokerUsername>
+							<pactBrokerPassword>${pact_broker_password}</pactBrokerPassword>
+							<projectVersion>13</projectVersion>
+							<tags>
+								<tag>test</tag>
+							</tags>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+
+		</profile>
+		<profile>
+			<id>test</id>
+			<activation>
+				<property>
+					<name>mode</name>
+					<value>test</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>au.com.dius</groupId>
+						<artifactId>pact-jvm-provider-maven_2.12</artifactId>
+						<version>3.5.11</version>
+						<configuration>
+							<serviceProviders>
+								<serviceProvider>
+									<name>studentservice</name>
+									<protocol>http</protocol>
+									<host>localhost</host>
+									<port>8971</port>
+									<path>/</path>
+									<pactFileDirectory>../acceptedPacts</pactFileDirectory>
+								</serviceProvider>
+							</serviceProviders>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+
+		</profile>
+		<profile>
+			<id>acceptance</id>
+			<activation>
+				<property>
+					<name>mode</name>
+					<value>acceptance</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>au.com.dius</groupId>
+						<artifactId>pact-jvm-provider-maven_2.12</artifactId>
+						<version>3.5.11</version>
+						<configuration>
+							<serviceProviders>
+								<serviceProvider>
+									<name>studentservice</name>
+									<protocol>http</protocol>
+									<host>localhost</host>
+									<port>8972</port>
+									<path>/</path>
+									<pactFileDirectory>../acceptedPacts</pactFileDirectory>
+								</serviceProvider>
+							</serviceProviders>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+
+		</profile>
+	</profiles>
+
+	<build>
+		<plugins>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<systemPropertyVariables>
+						<pact.rootDir>../acceptedPacts</pact.rootDir>
+					</systemPropertyVariables>
+				</configuration>
+			</plugin>
+
+		</plugins>
+
+	</build>
+</project>

@@ -1,0 +1,32 @@
+{
+    "provider": {
+        "name": "mystudentservice"
+    },
+    "consumer": {
+        "name": "consumer1"
+    },
+    "interactions": [
+        {
+            "description": "a student request",
+            "request": {
+                "method": "GET",
+                "path": "/myapi/student/15"
+            },
+            "response": {
+                "status": 200,
+                "body": {
+                    "firstName": "Mickey",
+                    "lastName": "Mouse"
+                }
+            }
+        }
+    ],
+    "metadata": {
+        "pact-specification": {
+            "version": "3.0.0"
+        },
+        "pact-jvm": {
+            "version": "3.5.14"
+        }
+    }
+}

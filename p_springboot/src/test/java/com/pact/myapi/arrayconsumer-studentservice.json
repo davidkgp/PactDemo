@@ -1,0 +1,86 @@
+{
+    "provider": {
+        "name": "studentservice"
+    },
+    "consumer": {
+        "name": "arrayconsumer"
+    },
+    "interactions": [
+        {
+            "description": "a student request",
+            "request": {
+                "method": "GET",
+                "path": "/myapi/student/15",
+                "headers": {
+                    "Content-Type": "application/json"
+                }
+            },
+            "response": {
+                "status": 200,
+                "headers": {
+                    "Content-Type": "application/json"
+                },
+                "body": {
+                    "address": {
+                        "addressLine1": "1026YV",
+                        "addressLine2": "Arjenstraat"
+                    },
+                    "firstName": "Mickey",
+                    "labParterDetails": {
+                        "labPartner1": {
+                            "address": {
+                                "addressLine1": "Amta",
+                                "addressLine2": "West Bengal"
+                            },
+                            "firstName": "Deb",
+                            "lastName": "Laxman"
+                        },
+                        "labPartner2": {
+                            "address": {
+                                "addressLine1": "Hoogly",
+                                "addressLine2": "West Bengal"
+                            },
+                            "firstName": "Sanan",
+                            "lastName": "Prakash"
+                        }
+                    },
+                    "lastName": "Mouse",
+                    "otherAddress": [
+                        {
+                            "addressLine1": "My Temp Address11",
+                            "addressLine2": "My Temp Address12"
+                        },
+                        {
+                            "addressLine1": "My Temp Address21",
+                            "addressLine2": "My Temp Address22"
+                        }
+                    ],
+                    "parentDetails": {
+                        "fatherName": "Dave Roger",
+                        "motherName": "Teri Wig"
+                    }
+                }
+                ,"matchingRules": {
+                  "body": {
+                   "$.otherAddress":{
+                       
+                        "matchers": [
+                              { "min": 1, "match": "type" }
+                            ]
+                   
+                   }
+                   }
+                 
+                 }
+            }
+        }
+    ],
+    "metadata": {
+        "pact-specification": {
+            "version": "3.0.0"
+        },
+        "pact-jvm": {
+            "version": "3.5.16"
+        }
+    }
+}

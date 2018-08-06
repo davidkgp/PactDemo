@@ -16,7 +16,7 @@
 	<modules>
 	    <module>myconsumer</module>
 		<module>myprovider</module>
-		<module>myspringboot_pactbroker</module>
+		
 	</modules>
 	
 </project>

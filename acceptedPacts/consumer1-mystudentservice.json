@@ -10,15 +10,20 @@
             "description": "a student request",
             "request": {
                 "method": "GET",
-                "path": "/myapi/student/15"
+                "path": "/myapi/student/93"
             },
             "response": {
                 "status": 200,
                 "body": {
-                    "firstName": "Mickey",
-                    "lastName": "Mouse"
+                    "firstName": "Scrooge",
+                    "lastName": "Duck"
                 }
-            }
+            },
+            "providerStates": [
+                {
+                    "name": "scrooge is created"
+                }
+            ]
         }
     ],
     "metadata": {

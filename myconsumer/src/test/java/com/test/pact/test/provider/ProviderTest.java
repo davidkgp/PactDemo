@@ -27,12 +27,13 @@ private int PORT = 8098;
     public RequestResponsePact  createPact(PactDslWithProvider builder) {
         Map<String, String> headers = new HashMap<String, String>();
         return builder
+        		.given("scrooge is created")
                 .uponReceiving("a student request")
-                .path("/myapi/student/15")
+                .path("/myapi/student/93")
                 .method("GET")
                 .willRespondWith()
                 .status(200)
-                .body("{\"firstName\":\"Mickey\",\"lastName\":\"Mouse\"}")
+                .body("{\"firstName\":\"Scrooge\",\"lastName\":\"Duck\"}")
                 .toPact();
     }
 	
@@ -40,8 +41,8 @@ private int PORT = 8098;
 	@PactVerification(value="mystudentservice")
 	public void testData() {
 		
-		Student student = MyConsumer.getStudent(PORT, 15);
-		Assert.assertTrue(student.getFirstName().equals("Mickey")&& student.getLastName().equals("Mouse"));
+		Student student = MyConsumer.getStudent(PORT, 93);
+		Assert.assertTrue(student.getFirstName().equals("Scrooge")&& student.getLastName().equals("Duck"));
 		
 		
 	}
